@@ -923,8 +923,8 @@ refactor_bootfs() {
         sed -i "s|sun.*.dtb|${FDTFILE}|g" ${boot_extlinux_file}
         sed -i "s|rk.*.dtb|${FDTFILE}|g" ${boot_extlinux_file}
 
-        echo "customize oec boot files..."
         if [ "${make_openwrt[0]}" = "wxy-oect" ]; then
+            echo "customize oec boot files..."
             sed -i "s|FDT\s*/dtb/rockchip/rk.*\.dtb|FDT /dtb/rockchip/rk3566-oec-box-wxy4.dtb|g" "${boot_extlinux_file}"
             dtb_source_dir="${tag_bootfs}/dtb/${PLATFORM}"
             mkdir -p ${tag_bootfs}/boot/dtb/${PLATFORM}
@@ -940,8 +940,8 @@ refactor_bootfs() {
                 echo "ERROR: Target DTB file not found!"
                 exit 1
             fi
+            echo "customize oec boot files done"
         fi
-        echo "customize oec boot files done"
 
         # If needed, such as t95z(s905x), rename delete .bak
         [[ "${BOOT_CONF}" == "extlinux.conf" ]] && mv -f ${boot_extlinux_file} ${rename_extlinux_file}
