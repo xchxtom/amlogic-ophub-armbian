@@ -877,6 +877,7 @@ replace_kernel() {
 }
 
 refactor_bootfs() {
+    #local board="$1"
     process_msg "(5/7) Refactor bootfs files."
     cd ${tag_bootfs}
 
@@ -923,7 +924,7 @@ refactor_bootfs() {
         sed -i "s|sun.*.dtb|${FDTFILE}|g" ${boot_extlinux_file}
         sed -i "s|rk.*.dtb|${FDTFILE}|g" ${boot_extlinux_file}
 
-        if [ "${build_armbian[0]}" = "wxy-oect" ]; then
+        if [ "${board}" = "wxy-oect" ]; then
             echo "customize oec boot files..."
             sed -i "s|FDT\s*/dtb/rockchip/rk.*\.dtb|FDT /dtb/rockchip/rk3566-oec-box-wxy4.dtb|g" "${boot_extlinux_file}"
             dtb_source_dir="${tag_bootfs}/dtb/${PLATFORM}"
